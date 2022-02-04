@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import { connect } from "react-redux";
 import { routes } from "./routes";
@@ -16,7 +16,12 @@ export const AppRouter = ({ loggedIn }) => {
     <Router history={history}>
       {!loggedIn ? (
         <Switch>
-          <Route path={routes.login} render={() => <Login />} exact />
+          <Route
+            path={routes.login}
+            render={() => <Login history={history} />}
+            exact
+          />
+          <Route render={() => <NotFoundPage />} />
         </Switch>
       ) : (
         <Switch>
@@ -32,6 +37,7 @@ export const AppRouter = ({ loggedIn }) => {
             exact
             loggedIn={loggedIn}
           />
+          <PrivateRoute component={NotFoundPage} loggedIn={loggedIn} />
         </Switch>
       )}
     </Router>
@@ -40,7 +46,7 @@ export const AppRouter = ({ loggedIn }) => {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: !!state.loginReducer.uid,
+    loggedIn: !!state.loginReducer.user.uid,
   };
 };
 

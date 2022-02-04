@@ -1,19 +1,37 @@
 import { loginTypes } from "../types";
 
-const loginReducerState = {};
+const loginReducerState = {
+  user: {
+    uid: null,
+    nameUser: null,
+    emailUser: null,
+    photoUser: null,
+  },
+  error: null,
+};
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default (state = loginReducerState, action) => {
+export const loginReducer = (state = loginReducerState, action) => {
   switch (action.type) {
     case loginTypes.LOGIN:
       return {
         ...state,
-        uid: action.uid,
+        user: action.user,
       };
     case loginTypes.LOGOUT:
       return {
         ...state,
-        uid: null,
+        user: {
+          uid: null,
+          nameUser: null,
+          emailUser: null,
+          photoUser: null,
+        },
+        error: null,
+      };
+    case loginTypes.LOGIN_ERROR:
+      return {
+        ...state,
+        error: action.error,
       };
     default:
       return state;

@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function NotFoundPage() {
+function NotFoundPage({ loggedIn }) {
   return (
     <div>
       <p>Pagina no encontrada</p>
-      <Link to="/">Volver al inicio</Link>
+      <Link to={loggedIn ? "/dashboard" : "/"}>
+        Ir a{loggedIn ? "l inicio" : " iniciar sesión"}
+      </Link>
     </div>
   );
 }
