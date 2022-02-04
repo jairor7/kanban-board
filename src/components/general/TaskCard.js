@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deleteTask } from "../../store/redux/actions/kanbanAction";
-import { DeleteModal } from "../board/DeleteModal";
+import { ValidationModal } from "../general/ValidationModal";
 import ModalTask from "../board/ModalTask";
 
 const TaskCard = ({ task, deleteTask, uid }) => {
   const [activeTaskModal, setActiveTaskModal] = useState(false);
   const [activeDeleteTask, setActiveDeleteTask] = useState(false);
+  const messageText = "¿Está seguro que desea eliminar esta tarea?";
+  const titleText = "Eliminar tarea";
+  const buttonText = "Eliminar";
 
   const handleModalTask = () => {
     setActiveTaskModal((activeTaskModal) => !activeTaskModal);
@@ -31,16 +34,19 @@ const TaskCard = ({ task, deleteTask, uid }) => {
         />
       )}
       {activeDeleteTask && (
-        <DeleteModal
-          activeDeleteTask={activeDeleteTask}
-          handleDeleteModal={handleDeleteModal}
-          deleteTask={onClickDelete}
+        <ValidationModal
+          activeModal={activeDeleteTask}
+          handleModal={handleDeleteModal}
+          actionModal={onClickDelete}
+          messageText={messageText}
+          titleText={titleText}
+          buttonText={buttonText}
         />
       )}
       <h3>{task.task}</h3>
-      <span>{task.description ? task.description : "No descripción"}</span>
+      <span>{task.description ? task.description : "Sin descripción"}</span>
       <div className="card-task__footer">
-        <span className="card-task__hours">{task.hours}</span>
+        <span className="card-task__hours">{task.hours} hr</span>
         <div className="icons">
           <svg
             xmlns="http://www.w3.org/2000/svg"

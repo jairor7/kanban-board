@@ -9,7 +9,7 @@ export const PrivateRoute = ({ loggedIn, component: Component, ...props }) => {
       {...props}
       render={() =>
         loggedIn ? (
-          <div>
+          <div className="container">
             <Header />
             <Component loggedIn />
           </div>

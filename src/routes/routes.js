@@ -1,6 +1,6 @@
 export const routes = {
   login: "/",
-  dashboard: "/dashboard",
+  board: "/board",
   task: "/tareas",
   notFoundPage: "/404",
 };

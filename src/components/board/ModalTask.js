@@ -21,6 +21,7 @@ export const ModalTask = ({
   const [priority, setPriority] = useState(1);
   const [stateTask, setStateTask] = useState(0);
   const [hours, setHours] = useState("0");
+  const [textError, setTextError] = useState("");
 
   useEffect(() => {
     if (isEdit) {
@@ -38,7 +39,11 @@ export const ModalTask = ({
   };
 
   const handleTask = (e) => {
-    setTask(e.target.value);
+    if (e.target.value.length > 0) {
+      setTask(e.target.value);
+    } else {
+      setTextError("El campo título es obligatorio");
+    }
   };
 
   const handleDescription = (e) => {
@@ -54,7 +59,12 @@ export const ModalTask = ({
   };
 
   const handleHours = (e) => {
-    setHours(e.target.value);
+    let regex = /^[0-9]*$/;
+    if (regex.test(e.target.value)) {
+      setHours(e.target.value);
+    } else {
+      e.target.value = hours;
+    }
   };
 
   const onSubmit = (e) => {
@@ -78,24 +88,33 @@ export const ModalTask = ({
 
   return (
     <Modal isOpen={activeTaskModal}>
-      <h1>{text} tarea</h1>
-      <form onSubmit={onSubmit}>
-        <FormTask
-          handleTask={handleTask}
-          handleDescription={handleDescription}
-          handlePriority={handlePriority}
-          handleStateTask={handleStateTask}
-          handleHours={handleHours}
-          task={task}
-          description={description}
-          priority={priority}
-          stateTask={stateTask}
-          hours={hours}
-          isEdit={isEdit}
-        />
-        <button onClick={handleModalTask}>Cancelar</button>
-        <button>{text}</button>
-      </form>
+      <div className="modal">
+        <h1 className="modal-title">{text} tarea</h1>
+        <hr />
+        <form onSubmit={onSubmit}>
+          <FormTask
+            handleTask={handleTask}
+            handleDescription={handleDescription}
+            handlePriority={handlePriority}
+            handleStateTask={handleStateTask}
+            handleHours={handleHours}
+            task={task}
+            description={description}
+            priority={priority}
+            stateTask={stateTask}
+            hours={hours}
+            isEdit={isEdit}
+          />
+          <span className="form-text-error">{textError}</span>
+          <hr />
+          <div className="button-footer">
+            <button className="btn btn-secondary" onClick={handleModalTask}>
+              Cancelar
+            </button>
+            <button className="btn btn-primary">{text}</button>
+          </div>
+        </form>
+      </div>
     </Modal>
   );
 };

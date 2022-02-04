@@ -1,0 +1,42 @@
+.ReactModal__Content.ReactModal__Content--after-open {
+  inset: auto !important;
+  top: 50% !important;
+  left: 50% !important;
+  min-width: 60rem !important;
+  min-height: 25rem !important;
+  height: none !important;
+  transform: translate(-50%, -50%) !important;
+  color: $primary-color !important;
+  border-radius: 2rem !important;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+  background-color: #ffffffc0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.modal-title {
+  color: $primary-color;
+  font-weight: 700;
+  margin: $s-size 0;
+}
+
+.modal-message {
+  color: $tertiary-color;
+}
+
+.button-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
+  gap: 1rem;
+  padding: $s-size 0 0 0;
+}

@@ -9,7 +9,99 @@ html {
 }
 
 body {
-  font-family: sans-serif, Arial, Helvetica, Verdana, Tahoma;
+  font-family: "Rubik", sans-serif, Arial, Helvetica, Verdana, Tahoma;
   font-size: $m-size;
   color: $tertiary-color;
+}
+
+.container {
+  height: 100vh;
+}
+
+h1 {
+  font-size: $l-size;
+  font-weight: 500;
+  color: $tertiary-color;
+  margin: 0;
+}
+
+h2 {
+  font-size: $m-size;
+  margin-bottom: $s-size;
+  font-weight: 700;
+  color: $tertiary-color;
+}
+
+// ------------------------ Buttons ------------------------ //
+
+.btn {
+  min-width: 12rem;
+  padding: $xs-size $s-size;
+  border-radius: $xs-size;
+  border: 1px solid $tertiary-color;
+  color: $tertiary-color;
+  font-weight: 500;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: $light-color;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: lighten($color: $primary-color, $amount: 7) !important;
+  }
+}
+
+.btn-secondary {
+  background-color: $white-color;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $light-color;
+    color: $gray-color;
+  }
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $xs-size;
+  width: 100%;
+  .icon {
+    width: $m-size;
+    height: $m-size;
+  }
+}
+
+.btn-content.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  .icon {
+    width: $l-size;
+    height: $l-size;
+  }
+  &:hover {
+    border-radius: $xs-size;
+    transform: translate(0.3rem, 0);
+    cursor: pointer;
+  }
+}
+
+// ---------------------------- Main container ---------------------------- //
+
+.main-container {
+  margin: $l-size;
+}
+
+// ---------------------------- Input ---------------------------- //
+input,
+select,
+textarea {
+  padding: $xs-size $s-size;
 }

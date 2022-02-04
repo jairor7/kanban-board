@@ -1,0 +1,38 @@
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, 1fr);
+  margin: $s-size 0;
+  gap: $s-size;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: $xs-size;
+}
+
+.form-group.input-description {
+  grid-row: 3 / -1;
+  grid-column: 1 / -1;
+}
+
+.form-text-error {
+  color: $danger-color;
+  font-size: $s-size;
+  font-style: italic;
+  font-weight: 500;
+  display: block;
+  height: $l-size;
+  padding: $xs-size 0;
+}
+
+.required::after {
+  content: "*";
+  color: $danger-color;
+  font-size: $m-size;
+  font-weight: 500;
+}

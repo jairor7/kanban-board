@@ -1,0 +1,42 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $primary-color;
+  height: $xl-size;
+  color: $white-color;
+  position: sticky;
+  padding: 0 $l-size;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  a {
+    display: flex;
+    align-items: center;
+    height: $xxl-size;
+    padding: $m-size $s-size;
+    border-radius: $xs-size;
+    color: $white-color;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    &:hover {
+      color: $light-color;
+    }
+  }
+  a.active {
+    background-color: $secondary-color;
+  }
+}
+
+.btn-logout {
+  background-color: $secondary-color;
+  padding: $m-size $s-size;
+  color: $white-color;
+  &:hover {
+    background-color: $light-color;
+  }
+}

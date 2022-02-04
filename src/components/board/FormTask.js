@@ -15,9 +15,9 @@ export const FormTask = ({
   isEdit,
 }) => {
   return (
-    <div>
+    <div className="form-container">
       <div className="form-group">
-        <label>Tarea:</label>
+        <label className="required">Título:</label>
         <input
           type="text"
           className="form-control"
@@ -25,9 +25,22 @@ export const FormTask = ({
           placeholder="Nombre de la tarea"
           onChange={handleTask}
           defaultValue={task}
+          required="required"
+          autoComplete="off"
         />
       </div>
+
       <div className="form-group">
+        <label>Tiempo (hr):</label>
+        <input
+          type="text"
+          className="form-control"
+          id="hours"
+          onChange={handleHours}
+          defaultValue={hours}
+        />
+      </div>
+      <div className="form-group input-description">
         <label>Descripción:</label>
         <textarea
           className="form-control"
@@ -39,17 +52,7 @@ export const FormTask = ({
         ></textarea>
       </div>
       <div className="form-group">
-        <label>Tiempo (H)</label>
-        <input
-          type="text"
-          className="form-control"
-          id="hours"
-          onChange={handleHours}
-          defaultValue={hours}
-        />
-      </div>
-      <div className="form-group">
-        <label>Prioridad</label>
+        <label>Prioridad:</label>
         <select
           className="form-control"
           id="priority"
@@ -63,7 +66,7 @@ export const FormTask = ({
       </div>
       {isEdit && (
         <div className="form-group">
-          <label>Estado</label>
+          <label>Estado:</label>
           <select
             className="form-control"
             id="state"

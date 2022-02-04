@@ -4,32 +4,41 @@ import {
   updateTask,
   removeTask,
 } from "../../../api/kanbanService";
-import { routes } from "../../../routes/routes";
-import { kanbanTypes } from "../types";
+import { kanbanTypes, loadingTypes } from "../types";
 
 const setTaksData = (tasks) => ({
   type: kanbanTypes.SET_KANBAN_DATA,
   tasks,
 });
 
-export const addTask = (uid, task, history) => {
+const setError = (error) => ({
+  type: kanbanTypes.SET_KANBAN_ERROR,
+  error,
+});
+
+export const setLoading = (isLoading) => ({
+  type: loadingTypes.SET_LOADING,
+  isLoading,
+});
+
+export const addTask = (uid, task) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return add(task, uid)
       .then(() => {
         dispatch(getAllTask(uid));
-        history.push(routes.dashboard);
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        dispatch({
-          type: kanbanTypes.SET_KANBAN_ERROR,
-          error,
-        });
+        dispatch(setLoading(false));
+        dispatch(setError(error));
       });
   };
 };
 
 export const getAllTask = (uid) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return getTask(uid)
       .then((snapshot) => {
         const tasks = [];
@@ -40,43 +49,41 @@ export const getAllTask = (uid) => {
           });
         });
         dispatch(setTaksData(tasks));
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        dispatch({
-          type: kanbanTypes.SET_KANBAN_ERROR,
-          error,
-        });
+        dispatch(setLoading(false));
+        dispatch(setError(error));
       });
   };
 };
 
-export const editTask = (uid, task, taskId, history = null) => {
+export const editTask = (uid, task, taskId) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return updateTask(task, uid, taskId)
       .then(() => {
         dispatch(getAllTask(uid));
-        history && history.push(routes.dashboard);
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        dispatch({
-          type: kanbanTypes.SET_KANBAN_ERROR,
-          error,
-        });
+        dispatch(setLoading(false));
+        dispatch(setError(error));
       });
   };
 };
 
 export const deleteTask = (uid, taskId) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return removeTask(uid, taskId)
       .then(() => {
         dispatch(getAllTask(uid));
+        dispatch(setLoading(false));
       })
       .catch((error) => {
-        dispatch({
-          type: kanbanTypes.SET_KANBAN_ERROR,
-          error,
-        });
+        dispatch(setLoading(false));
+        dispatch(setError(error));
       });
   };
 };

@@ -5,14 +5,17 @@ import { connect } from "react-redux";
 import { routes } from "./routes";
 
 import Login from "../components/account/Login";
-import Dashboard from "../components/board/Dashboard";
+import Board from "../components/board/Board";
 import PrivateRoute from "./PrivateRoute";
-import Task from "../components/board/Task";
+import Tasks from "../components/board/Tasks";
 import NotFoundPage from "../components/general/NotFoundPage";
+import Loading from "../components/general/Loading";
 
 export const history = createHistory();
-export const AppRouter = ({ loggedIn }) => {
-  return (
+export const AppRouter = ({ loggedIn, isLoading }) => {
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Router history={history}>
       {!loggedIn ? (
         <Switch>
@@ -26,14 +29,14 @@ export const AppRouter = ({ loggedIn }) => {
       ) : (
         <Switch>
           <PrivateRoute
-            path={routes.dashboard}
-            component={Dashboard}
+            path={routes.board}
+            component={Board}
             exact
             loggedIn={loggedIn}
           />
           <PrivateRoute
             path={routes.task}
-            component={Task}
+            component={Tasks}
             exact
             loggedIn={loggedIn}
           />
@@ -47,6 +50,7 @@ export const AppRouter = ({ loggedIn }) => {
 const mapStateToProps = (state) => {
   return {
     loggedIn: !!state.loginReducer.user.uid,
+    isLoading: state.generalReducer.isLoading,
   };
 };
 

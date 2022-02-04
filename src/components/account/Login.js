@@ -8,9 +8,15 @@ export const Login = ({ login, loggedIn, ...props }) => {
   };
 
   return (
-    <div>
-      <button onClick={startLogin}>Login</button>
-    </div>
+    <section className="container-login">
+      <div className="box-login">
+        <h1 className="title-login">Login</h1>
+        <span>Para ingresar inicia sesión con Google</span>
+        <button className="btn btn-primary" onClick={startLogin}>
+          Iniciar sesión con Google
+        </button>
+      </div>
+    </section>
   );
 };
 const mapStateToProps = (state) => ({

@@ -1,0 +1,31 @@
+.container-login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: $light-color;
+}
+
+.box-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $m-size;
+  background-color: $white-color;
+  border-radius: $xs-size;
+  padding: $l-size;
+  color: $tertiary-color;
+  inset: 400px;
+  border-radius: $m-size;
+  box-shadow: 0.5rem 0.5rem 1.9rem rgba(0, 0, 0, 0.192);
+}
+
+.title-login {
+  font-size: $l-size;
+  font-weight: 500;
+  color: $primary-color;
+  margin: 0;
+}

@@ -4,7 +4,13 @@ import {
   authInstance,
 } from "../../../firebase/firebase";
 import { routes } from "../../../routes/routes";
-import { loginTypes } from "../types";
+import { loginTypes, loadingTypes, kanbanTypes } from "../types";
+import { getAllTask } from "./kanbanAction";
+
+const setLoading = (isLoading) => ({
+  type: loadingTypes.SET_LOADING,
+  isLoading,
+});
 
 export const setStateLogin = ({ uid, displayName, email, photoURL }) => {
   return {
@@ -27,13 +33,17 @@ const setErrorLogin = (error) => {
 
 export const login = (history) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return auth
       .signInWithPopup(authInstance, googleAuthProvider)
       .then((result) => {
+        dispatch(setLoading(false));
         dispatch(setStateLogin(result.user));
-        history.push(routes.dashboard);
+        dispatch(getAllTask(result.user.uid));
+        history.push(routes.board);
       })
       .catch((error) => {
+        dispatch(setLoading(false));
         let errorMessage = "No se pudo iniciar sesión con Google";
         if (error.message !== "Firebase: Error (auth/popup-closed-by-user).") {
           errorMessage = error.message;
@@ -51,8 +61,14 @@ export const setStateLogout = () => {
 
 export const logout = (history) => {
   return (dispatch) => {
+    dispatch(setLoading(true));
     return auth.signOut(authInstance, googleAuthProvider).then(() => {
+      dispatch(setLoading(false));
       dispatch(setStateLogout());
+      dispatch({
+        type: kanbanTypes.SET_KANBAN_DATA,
+        tasks: [],
+      });
       history.push(routes.login);
     });
   };

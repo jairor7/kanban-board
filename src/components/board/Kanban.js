@@ -2,7 +2,7 @@ import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { connect } from "react-redux";
 import { selectTasksByState } from "../../store/redux/selectors/tasks";
-import { stateTaskName, stateTask } from "../../utils/constants";
+import { stateTaskName } from "../../utils/constants";
 import { editTask } from "../../store/redux/actions/kanbanAction";
 import TaskCard from "../general/TaskCard";
 
@@ -23,7 +23,7 @@ export const Kanban = (props) => {
   };
 
   return props.totalTask > 0 ? (
-    <div className="container container-dashboard">
+    <div className="container container-board">
       {props.orderedTasks && (
         <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
           {props.orderedTasks.map((tasks, index) => (
@@ -70,7 +70,7 @@ export const Kanban = (props) => {
       )}
     </div>
   ) : (
-    <div>No hay datos para mostrar</div>
+    <div>No hay tareas para mostrar, agrega una para comenzar</div>
   );
 };
 
