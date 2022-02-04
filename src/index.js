@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "normalize.css/normalize.css";
+import "./styles/styles.scss";
+import { Provider } from "react-redux";
+import store from "./store/configureStore";
+import AppRouter from "./routes/AppRouter";
+import { authInstance, onAuthStateChanged } from "./firebase/firebase";
+import { loginTypes } from "./store/redux/types";
 
-ReactDOM.render(
+onAuthStateChanged(authInstance, (user) => {
+  if (user) {
+    store.dispatch({ type: loginTypes.LOGIN, user: user });
+  } else {
+    store.dispatch({ type: loginTypes.LOGOUT });
+  }
+});
+
+const app = (
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(app, document.getElementById("root"));
