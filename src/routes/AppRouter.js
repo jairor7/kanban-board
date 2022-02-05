@@ -40,7 +40,12 @@ export const AppRouter = ({ loggedIn, isLoading }) => {
             exact
             loggedIn={loggedIn}
           />
-          <PrivateRoute component={NotFoundPage} loggedIn={loggedIn} />
+          <PrivateRoute
+            path="*"
+            exact={true}
+            component={NotFoundPage}
+            loggedIn={loggedIn}
+          />
         </Switch>
       )}
     </Router>

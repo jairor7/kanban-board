@@ -20,6 +20,7 @@ export const FormTask = ({
         <label className="required">Título:</label>
         <input
           type="text"
+          maxLength="50"
           className="form-control"
           id="task"
           placeholder="Nombre de la tarea"
@@ -34,6 +35,7 @@ export const FormTask = ({
         <label>Tiempo (hr):</label>
         <input
           type="text"
+          maxLength="5"
           className="form-control"
           id="hours"
           onChange={handleHours}
@@ -47,6 +49,7 @@ export const FormTask = ({
           id="description"
           placeholder="Descripción de la tarea"
           rows="3"
+          maxLength="500"
           onChange={handleDescription}
           defaultValue={description}
         ></textarea>
