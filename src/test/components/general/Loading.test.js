@@ -1,9 +1,9 @@
-import Login from "../../components/account/Login";
+import Loading from "../../../components/general/Loading";
 import React from "react";
 import toJSON from "enzyme-to-json";
 import { shallow } from "enzyme";
 
-test("should render Login correctly", () => {
-  const wrapper = shallow(<Login />);
+test("should render Loading correctly", () => {
+  const wrapper = shallow(<Loading />);
   expect(toJSON(wrapper)).toMatchSnapshot();
 });

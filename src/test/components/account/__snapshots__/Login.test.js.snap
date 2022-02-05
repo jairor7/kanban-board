@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Login correctly 1`] = `
+<section
+  className="container-login"
+>
+  <div
+    className="box-login"
+  >
+    <h1
+      className="title-login"
+    >
+      Login
+    </h1>
+    <span>
+      Para ingresar, inicia sesión con Google
+    </span>
+    <span
+      className="form-text-error"
+    />
+    <button
+      className="btn btn-primary"
+      onClick={[Function]}
+    >
+      Iniciar sesión con Google
+    </button>
+  </div>
+</section>
+`;

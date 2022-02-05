@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render FormTask correctly 1`] = `
+<div
+  className="form-container"
+>
+  <div
+    className="form-group"
+  >
+    <label
+      className="required"
+    >
+      Título:
+    </label>
+    <input
+      autoComplete="off"
+      className="form-control"
+      id="task"
+      maxLength="50"
+      placeholder="Nombre de la tarea"
+      required="required"
+      type="text"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label>
+      Tiempo (hr):
+    </label>
+    <input
+      className="form-control"
+      id="hours"
+      maxLength="5"
+      type="text"
+    />
+  </div>
+  <div
+    className="form-group input-description"
+  >
+    <label>
+      Descripción:
+    </label>
+    <textarea
+      className="form-control"
+      id="description"
+      maxLength="500"
+      placeholder="Descripción de la tarea"
+      rows="3"
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <label>
+      Prioridad:
+    </label>
+    <select
+      className="form-control"
+      id="priority"
+    >
+      <option
+        value={1}
+      >
+        Baja
+      </option>
+      <option
+        value={2}
+      >
+        Media
+      </option>
+      <option
+        value={3}
+      >
+        Alta
+      </option>
+    </select>
+  </div>
+</div>
+`;
