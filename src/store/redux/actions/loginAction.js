@@ -44,7 +44,8 @@ export const login = (history) => {
       })
       .catch((error) => {
         dispatch(setLoading(false));
-        let errorMessage = "No se pudo iniciar sesión con Google";
+        let errorMessage =
+          "No se pudo iniciar sesión con Google, intentalo de nuevo";
         if (error.message !== "Firebase: Error (auth/popup-closed-by-user).") {
           errorMessage = error.message;
         }
