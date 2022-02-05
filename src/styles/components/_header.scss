@@ -40,3 +40,32 @@ nav {
     background-color: $light-color;
   }
 }
+
+// ------------------------ Responsive ------------------------ //
+
+.btn-content {
+  .content {
+    @media screen and (max-width: $middle-width) {
+      font-size: $s-size;
+    }
+    @media screen and (max-width: $mobile-width) {
+      display: none;
+    }
+  }
+  .icon {
+    @media screen and (max-width: $middle-width) {
+      width: $m-size;
+      height: $m-size;
+    }
+    @media screen and (max-width: $mobile-width) {
+      width: $l-size;
+      height: $l-size;
+    }
+  }
+  .icon.icon-add {
+    @media screen and (max-width: $middle-width) {
+      width: $ls-size;
+      height: $ls-size;
+    }
+  }
+}

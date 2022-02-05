@@ -11,6 +11,17 @@
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.2) !important;
 }
 
+@media screen and (max-width: $middle-width) {
+  .ReactModal__Content.ReactModal__Content--after-open {
+    min-width: 48rem !important;
+  }
+}
+@media screen and (max-width: $mobile-width) {
+  .ReactModal__Content.ReactModal__Content--after-open {
+    min-width: 32rem !important;
+  }
+}
+
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
   background-color: #ffffffc0 !important;
   transition: all 0.3s ease !important;

@@ -1,10 +1,23 @@
 .form-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
   grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(2, 1fr);
   margin: $s-size 0;
   gap: $s-size;
+}
+
+@media screen and (max-width: $middle-width) {
+  .form-container {
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: $mobile-width) {
+  .form-container {
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .form-group {
