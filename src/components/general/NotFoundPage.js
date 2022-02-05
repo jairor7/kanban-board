@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { history } from "../../routes/AppRouter";
 import { routes } from "../../routes/routes";
 
-function NotFoundPage({ loggedIn }) {
+export const NotFoundPage = ({ loggedIn }) => {
   const isNotFound =
     history.location.pathname !== routes.task &&
     history.location.pathname !== routes.board;
@@ -22,6 +22,6 @@ function NotFoundPage({ loggedIn }) {
       </section>
     )
   );
-}
+};
 
 export default NotFoundPage;
