@@ -4,7 +4,8 @@ import {
   updateTask,
   removeTask,
 } from "../../../api/kanbanService";
-import { kanbanTypes, loadingTypes } from "../types";
+import { kanbanTypes } from "../types";
+import { setLoading } from "./generalAction";
 
 const setTaksData = (tasks) => ({
   type: kanbanTypes.SET_KANBAN_DATA,
@@ -14,11 +15,6 @@ const setTaksData = (tasks) => ({
 const setError = (error) => ({
   type: kanbanTypes.SET_KANBAN_ERROR,
   error,
-});
-
-export const setLoading = (isLoading) => ({
-  type: loadingTypes.SET_LOADING,
-  isLoading,
 });
 
 export const addTask = (uid, task) => {

@@ -4,13 +4,9 @@ import {
   authInstance,
 } from "../../../firebase/firebase";
 import { routes } from "../../../routes/routes";
-import { loginTypes, loadingTypes, kanbanTypes } from "../types";
+import { loginTypes, kanbanTypes } from "../types";
 import { getAllTask } from "./kanbanAction";
-
-const setLoading = (isLoading) => ({
-  type: loadingTypes.SET_LOADING,
-  isLoading,
-});
+import { setLoading } from "./generalAction";
 
 export const setStateLogin = ({ uid, displayName, email, photoURL }) => {
   return {
