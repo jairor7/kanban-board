@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { login } from "../../store/redux/actions/loginAction";
+import { history } from "../../routes/AppRouter";
 
 export const Login = ({ login, loggedIn, errorMessage, ...props }) => {
   const startLogin = () => {
-    login(props.history);
+    login(history);
   };
   return (
     <section className="container-login">

@@ -9,14 +9,16 @@ import { getAllTask } from "./kanbanAction";
 import { setLoading } from "./generalAction";
 
 export const setStateLogin = ({ uid, displayName, email, photoURL }) => {
-  return {
-    type: loginTypes.LOGIN,
-    user: {
-      uid,
-      displayName,
-      email,
-      photoURL,
-    },
+  return (dispatch) => {
+    dispatch({
+      type: loginTypes.LOGIN,
+      user: {
+        uid,
+        displayName,
+        email,
+        photoURL,
+      },
+    });
   };
 };
 

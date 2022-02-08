@@ -11,7 +11,7 @@ export const PrivateRoute = ({ loggedIn, component: Component, ...props }) => {
         loggedIn ? (
           <div className="container">
             <Header />
-            <Component loggedIn />
+            <Component loggedIn={loggedIn} />
           </div>
         ) : (
           <Redirect to={{ pathname: routes.login }} />

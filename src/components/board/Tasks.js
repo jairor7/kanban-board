@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { getAllTask } from "../../store/redux/actions/kanbanAction";
-import useDidMount from "use-did-mount";
-
 import TaskCard from "../general/TaskCard";
 import ModalTask from "./ModalTask";
 
-export const Tasks = ({ allTasks, uid, getAllTask }) => {
+export const Tasks = ({ allTasks }) => {
   const [activeTaskModal, setActiveTaskModal] = useState(false);
-  useDidMount(() => {
-    getAllTask(uid);
-  });
+
   const handleModalTask = () => {
     setActiveTaskModal((activeTaskModal) => !activeTaskModal);
   };
@@ -66,14 +61,11 @@ export const Tasks = ({ allTasks, uid, getAllTask }) => {
 };
 
 const mapStateToProps = (state) => ({
-  uid: state.loginReducer.user.uid,
   userName: state.loginReducer.user,
   displayName: state.loginReducer.user.displayName,
   allTasks: state.kanbanReducer.tasks,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getAllTask: (uid) => dispatch(getAllTask(uid)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tasks);

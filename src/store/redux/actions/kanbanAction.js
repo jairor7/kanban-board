@@ -6,6 +6,7 @@ import {
 } from "../../../api/kanbanService";
 import { kanbanTypes } from "../types";
 import { setLoading } from "./generalAction";
+import { setStateLogin } from "./loginAction";
 
 const setTaksData = (tasks) => ({
   type: kanbanTypes.SET_KANBAN_DATA,
@@ -32,7 +33,7 @@ export const addTask = (uid, task) => {
   };
 };
 
-export const getAllTask = (uid) => {
+export const getAllTask = (uid, user = null) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     return getTask(uid)
@@ -44,6 +45,7 @@ export const getAllTask = (uid) => {
             ...childSnapshot.val(),
           });
         });
+        user && dispatch(setStateLogin(user));
         dispatch(setTaksData(tasks));
         dispatch(setLoading(false));
       })

@@ -1,50 +1,43 @@
-import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { Router, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import { connect } from "react-redux";
 import { routes } from "./routes";
 import { authInstance, onAuthStateChanged } from "../firebase/firebase";
-import {
-  setStateLogin,
-  setStateLogout,
-} from "../store/redux/actions/loginAction";
+import { setStateLogout } from "../store/redux/actions/loginAction";
+import { getAllTask } from "../store/redux/actions/kanbanAction";
 
 import Login from "../components/account/Login";
 import Board from "../components/board/Board";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 import Tasks from "../components/board/Tasks";
 import NotFoundPage from "../components/general/NotFoundPage";
 import Loading from "../components/general/Loading";
 import useDidMount from "use-did-mount";
+import { setLoading } from "../store/redux/actions/generalAction";
 
 export const history = createHistory();
-export const AppRouter = ({
-  loggedIn,
-  isLoading,
-  setStateLogin,
-  setStateLogout,
-}) => {
+export const AppRouter = ({ isLoading, getAllTask, setStateLogout }) => {
+  const [loggedIn, setLoggedIn] = useState(undefined);
   useDidMount(() => {
     onAuthStateChanged(authInstance, (user) => {
-      user ? setStateLogin(user) : setStateLogout();
+      setLoggedIn(!!user);
+      user ? getAllTask(user.uid, user) : setStateLogout();
     });
   });
-
   return isLoading ? (
     <Loading />
   ) : (
-    <Router history={history}>
-      {!loggedIn ? (
+    loggedIn !== undefined && (
+      <Router history={history}>
         <Switch>
-          <Route
+          <PublicRoute
             path={routes.login}
-            render={() => <Login history={history} />}
             exact
+            component={Login}
+            loggedIn={loggedIn}
           />
-          <Route render={() => <NotFoundPage />} />
-        </Switch>
-      ) : (
-        <Switch>
           <PrivateRoute
             path={routes.board}
             component={Board}
@@ -57,28 +50,37 @@ export const AppRouter = ({
             exact
             loggedIn={loggedIn}
           />
-          <PrivateRoute
-            path="*"
-            exact={true}
-            component={NotFoundPage}
-            loggedIn={loggedIn}
-          />
+          {loggedIn && (
+            <PrivateRoute
+              path={"*"}
+              component={NotFoundPage}
+              exact
+              loggedIn={loggedIn}
+            />
+          )}
+          {!loggedIn && (
+            <PublicRoute
+              path={"*"}
+              component={NotFoundPage}
+              loggedIn={loggedIn}
+            />
+          )}
         </Switch>
-      )}
-    </Router>
+      </Router>
+    )
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: !!state.loginReducer.user.uid,
     isLoading: state.generalReducer.isLoading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setStateLogin: (user) => dispatch(setStateLogin(user)),
+  getAllTask: (uid, user) => dispatch(getAllTask(uid, user)),
   setStateLogout: () => dispatch(setStateLogout()),
+  setLoading: (isLoading) => dispatch(setLoading(isLoading)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);
