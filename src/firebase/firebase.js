@@ -23,7 +23,8 @@ const onAuthStateChanged = auth.onAuthStateChanged;
 const db = getDatabase();
 const googleAuthProvider = new auth.GoogleAuthProvider();
 const signInWithEmailAndPassword = auth.signInWithEmailAndPassword;
-
+const createUserWithEmailAndPassword = auth.createUserWithEmailAndPassword;
+const updateProfile = auth.updateProfile;
 export {
   db,
   googleAuthProvider,
@@ -33,4 +34,6 @@ export {
   authInstance,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
 };

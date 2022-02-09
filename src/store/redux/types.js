@@ -2,6 +2,7 @@ export const loginTypes = {
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
   LOGIN_ERROR: "LOGIN_ERROR",
+  SET_IS_LOADING: "SET_IS_LOADING",
 };
 
 export const kanbanTypes = {

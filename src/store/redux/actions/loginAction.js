@@ -3,6 +3,8 @@ import {
   auth,
   authInstance,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
 } from "../../../firebase/firebase";
 import { routes } from "../../../routes/routes";
 import { loginTypes, kanbanTypes } from "../types";
@@ -23,20 +25,51 @@ export const setStateLogin = ({ uid, displayName, email, photoURL }) => {
   };
 };
 
-const setErrorLogin = (error) => {
+export const setIsLogin = (isLogin) => {
+  return {
+    type: loginTypes.SET_IS_LOADING,
+    isLogin,
+  };
+};
+
+export const setErrorLogin = (error) => {
   return {
     type: loginTypes.LOGIN_ERROR,
     error,
   };
 };
 
+export const createUserWithEmail = ({ name, email, password, history }) => {
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    return createUserWithEmailAndPassword(auth.getAuth(), email, password)
+      .then((userCredential) => {
+        updateProfile(auth.getAuth().currentUser, {
+          displayName: name,
+        })
+          .then(() => {
+            dispatch(setLoading(false));
+            dispatch(setStateLogin(userCredential.user));
+            dispatch(getAllTask(userCredential.user.uid));
+            history.push(routes.board);
+          })
+          .catch((error) => {
+            dispatch(setLoading(false));
+            dispatch(setErrorLogin(error.message));
+          });
+      })
+      .catch((error) => {
+        dispatch(setLoading(false));
+        dispatch(setErrorLogin(error.message));
+      });
+  };
+};
+
 export const loginWithEmail = ({ email, password, history }) => {
-  console.log(email, password);
   return (dispatch) => {
     dispatch(setLoading(true));
     return signInWithEmailAndPassword(auth.getAuth(), email, password)
       .then((userCredential) => {
-        console.log(userCredential);
         dispatch(setLoading(false));
         dispatch(setStateLogin(userCredential.user));
         dispatch(getAllTask(userCredential.user.uid));
@@ -44,13 +77,7 @@ export const loginWithEmail = ({ email, password, history }) => {
       })
       .catch((error) => {
         dispatch(setLoading(false));
-        console.log(error.code);
-        let errorMessage =
-          "No se pudo iniciar sesión con Google, intentalo de nuevo";
-        if (error.message !== "Firebase: Error (auth/popup-closed-by-user).") {
-          errorMessage = error.message;
-        }
-        dispatch(setErrorLogin(errorMessage));
+        dispatch(setErrorLogin(error.message));
       });
   };
 };

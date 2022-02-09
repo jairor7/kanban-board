@@ -8,6 +8,7 @@ const loginReducerState = {
     photoUser: null,
   },
   error: null,
+  isLogin: true,
 };
 
 export const loginReducer = (state = loginReducerState, action) => {
@@ -32,6 +33,11 @@ export const loginReducer = (state = loginReducerState, action) => {
       return {
         ...state,
         error: action.error,
+      };
+    case loginTypes.SET_IS_LOADING:
+      return {
+        ...state,
+        isLogin: action.isLogin,
       };
     default:
       return state;

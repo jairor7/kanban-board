@@ -122,3 +122,18 @@ select,
 textarea {
   padding: $xs-size $s-size;
 }
+
+// ---------------------------- Divider hr ---------------------------- //
+
+hr.hr-text {
+  width: 100%;
+  position: relative;
+  &::after {
+    content: "O";
+    position: absolute;
+    left: 50%;
+    transform: translate(-1.2rem, -50%);
+    background-color: $white-color;
+    padding: 0 1.2rem;
+  }
+}
