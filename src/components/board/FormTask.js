@@ -15,13 +15,12 @@ export const FormTask = ({
   isEdit,
 }) => {
   return (
-    <div className="form-container">
+    <div className="form-container row-3 col-2">
       <div className="form-group">
         <label className="required">Título:</label>
         <input
           type="text"
           maxLength="50"
-          className="form-control"
           id="task"
           placeholder="Nombre de la tarea"
           onChange={handleTask}
@@ -36,7 +35,6 @@ export const FormTask = ({
         <input
           type="text"
           maxLength="5"
-          className="form-control"
           id="hours"
           onChange={handleHours}
           defaultValue={hours}
@@ -45,7 +43,6 @@ export const FormTask = ({
       <div className="form-group input-description">
         <label>Descripción:</label>
         <textarea
-          className="form-control"
           id="description"
           placeholder="Descripción de la tarea"
           rows="3"
@@ -56,12 +53,7 @@ export const FormTask = ({
       </div>
       <div className="form-group">
         <label>Prioridad:</label>
-        <select
-          className="form-control"
-          id="priority"
-          onChange={handlePriority}
-          defaultValue={priority}
-        >
+        <select id="priority" onChange={handlePriority} defaultValue={priority}>
           <option value={1}>Baja</option>
           <option value={2}>Media</option>
           <option value={3}>Alta</option>
@@ -71,7 +63,6 @@ export const FormTask = ({
         <div className="form-group">
           <label>Estado:</label>
           <select
-            className="form-control"
             id="state"
             onChange={handleStateTask}
             defaultValue={stateTask}

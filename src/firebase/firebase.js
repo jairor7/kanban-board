@@ -22,6 +22,7 @@ const authInstance = auth.getAuth(firebaseApp);
 const onAuthStateChanged = auth.onAuthStateChanged;
 const db = getDatabase();
 const googleAuthProvider = new auth.GoogleAuthProvider();
+const signInWithEmailAndPassword = auth.signInWithEmailAndPassword;
 
 export {
   db,
@@ -31,4 +32,5 @@ export {
   firebaseApp,
   authInstance,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
 };

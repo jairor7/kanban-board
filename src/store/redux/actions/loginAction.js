@@ -2,6 +2,7 @@ import {
   googleAuthProvider,
   auth,
   authInstance,
+  signInWithEmailAndPassword,
 } from "../../../firebase/firebase";
 import { routes } from "../../../routes/routes";
 import { loginTypes, kanbanTypes } from "../types";
@@ -29,7 +30,32 @@ const setErrorLogin = (error) => {
   };
 };
 
-export const login = (history) => {
+export const loginWithEmail = ({ email, password, history }) => {
+  console.log(email, password);
+  return (dispatch) => {
+    dispatch(setLoading(true));
+    return signInWithEmailAndPassword(auth.getAuth(), email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+        dispatch(setLoading(false));
+        dispatch(setStateLogin(userCredential.user));
+        dispatch(getAllTask(userCredential.user.uid));
+        history.push(routes.board);
+      })
+      .catch((error) => {
+        dispatch(setLoading(false));
+        console.log(error.code);
+        let errorMessage =
+          "No se pudo iniciar sesión con Google, intentalo de nuevo";
+        if (error.message !== "Firebase: Error (auth/popup-closed-by-user).") {
+          errorMessage = error.message;
+        }
+        dispatch(setErrorLogin(errorMessage));
+      });
+  };
+};
+
+export const loginWithGoogle = (history) => {
   return (dispatch) => {
     dispatch(setLoading(true));
     return auth

@@ -1,0 +1,14 @@
+// ----------------- Row ----------------- //
+.row-3 {
+  grid-template-rows: repeat(3, auto);
+}
+
+// ----------------- Column ----------------- //
+
+.col-1 {
+  grid-template-columns: repeat(1, auto);
+}
+
+.col-2 {
+  grid-template-columns: repeat(2, auto);
+}
