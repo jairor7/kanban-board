@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Router, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import { connect } from "react-redux";
 import { routes } from "./routes";
-import { authInstance, onAuthStateChanged } from "../firebase/firebase";
+import {
+  authInstance,
+  onAuthStateChanged,
+} from "../firebase/firebase";
 import { setStateLogout } from "../store/redux/actions/loginAction";
 import { getAllTask } from "../store/redux/actions/kanbanAction";
 
@@ -14,18 +17,23 @@ import PublicRoute from "./PublicRoute";
 import Tasks from "../components/board/Tasks";
 import NotFoundPage from "../components/general/NotFoundPage";
 import Loading from "../components/general/Loading";
-import useDidMount from "use-did-mount";
 import { setLoading } from "../store/redux/actions/generalAction";
 
 export const history = createHistory();
-export const AppRouter = ({ isLoading, getAllTask, setStateLogout }) => {
+export const AppRouter = ({
+  isLoading,
+  getAllTask,
+  setStateLogout,
+}) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
-  useDidMount(() => {
+
+  useEffect(() => {
     onAuthStateChanged(authInstance, (user) => {
       setLoggedIn(!!user);
       user ? getAllTask(user.uid, user) : setStateLogout();
     });
-  });
+  }, [getAllTask, setStateLogout]);
+
   return isLoading ? (
     <Loading />
   ) : (
@@ -71,11 +79,9 @@ export const AppRouter = ({ isLoading, getAllTask, setStateLogout }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.generalReducer.isLoading,
-  };
-};
+const mapStateToProps = (state) => ({
+  isLoading: state.generalReducer.isLoading,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getAllTask: (uid, user) => dispatch(getAllTask(uid, user)),
@@ -83,4 +89,7 @@ const mapDispatchToProps = (dispatch) => ({
   setLoading: (isLoading) => dispatch(setLoading(isLoading)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppRouter);
